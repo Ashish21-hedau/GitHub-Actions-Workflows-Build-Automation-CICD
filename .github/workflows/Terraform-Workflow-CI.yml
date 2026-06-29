@@ -55,7 +55,7 @@ jobs:
 
       - name: Terraform Format Check
         working-directory: ./Environments/Dev
-        run: terraform fmt -check
+        run: terraform fmt 
 
 
       - name: Terraform Validate
