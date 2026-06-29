@@ -25,10 +25,10 @@ permissions:
 
 jobs:
   # build:
-  Terraform Build Automation:
-    runs-on: ubuntu-latest
-    default:
-      working-directory: ./Environments/Dev
+    Terraform-Build-Automation-CI:
+      runs-on: ubuntu-latest
+    # default:
+    #   working-directory: ./Environments/Dev
 
     steps:
       
