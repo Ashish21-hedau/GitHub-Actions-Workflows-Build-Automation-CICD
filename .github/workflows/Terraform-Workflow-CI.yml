@@ -10,13 +10,13 @@ on:
        - main
 
   workflow_dispatch:
-     inputs:
-        description: 'Dev'
-        required: true
-        default: 'staging'
-        options:
-          - main
-          - featureahishbranch
+     # inputs:
+     #    description: 'Dev'
+     #    required: true
+     #    default: 'staging'
+     #    options:
+     #      - main
+     #      - featureahishbranch
 
 permissions:
    id-token: write
