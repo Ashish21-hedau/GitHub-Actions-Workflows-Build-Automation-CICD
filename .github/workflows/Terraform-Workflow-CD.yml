@@ -2,63 +2,55 @@ name: Terraform Workflow for CI
 
 on:
   push:
-    branches: 
-        - main
-        - featureahishbranch
+    branches:
+      - main
+      - featureahishbranch
+
   pull_request:
-    branches: 
-       - main
+    branches:
+      - main
 
   workflow_dispatch:
-     inputs:
-        description: 'Dev'
-        required: true
-        default: 'staging'
-        options:
-          - main
-          - featureahishbranch
 
 permissions:
-   id-token: write
-   contents: read
-   issues: write
+  id-token: write
+  contents: read
+  issues: write
+
 
 jobs:
-  # build:
-  Terraform Build Automation:
+  Terraform-Build-Automation-CI:
+
     runs-on: ubuntu-latest
-    default:
-      working-directory: ./Environments/Dev
 
     steps:
-      
-      - name: Terraform Checkout and Clone the Repository 
+
+      - name: Terraform Checkout and Clone the Repository
         uses: actions/checkout@v4
-      
+
+
       - name: Terraform Security Scan tool (tfsec)
         uses: aquasecurity/tfsec-action@v1.0.3
         with:
-           soft_fail: true
+          soft_fail: true
 
-      - name: Terraform Authenticate to Azure and run your Azure CLI
-        uses: Azure/login@v3.0.0
-        with:
-           client-id: $ {{secrets.AZURE_CLIENT_ID }}
-           tenant-id: $ {{secrets.AZURE_TENANT_ID }}
-           subscription-id: $ {{secrets.AZURE_SUBSCRIPTION_ID }}
-      
-      - name: Terraform Hashicorp Setup Terraform 
+
+      - name: Terraform Hashicorp Setup Terraform
         uses: hashicorp/setup-terraform@v3
+
+
+      - name: Azure Login
+        uses: Azure/login@v3
         with:
-          # terraform_version:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Run a one-line script
-        run: echo Hello Devops Indider Team world one !
 
-      - name : Terrform Init Infra Code Deployment
+      - name: Terraform Init Infra Code Deployment
         id: init
-        run: terraform init
         working-directory: ./Environments/Dev
+        run: terraform init
 
       - name: Terraform apply
         id: apply
