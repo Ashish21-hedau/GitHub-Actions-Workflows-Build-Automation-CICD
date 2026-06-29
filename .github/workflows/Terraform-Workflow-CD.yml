@@ -1,4 +1,4 @@
-name: Terraform Workflow for CI
+name: Terraform Workflow for CD
 
 on:
   push:
@@ -19,7 +19,7 @@ permissions:
 
 
 jobs:
-  Terraform-Build-Automation-CI:
+  Terraform-Build-Automation-CD:
 
     runs-on: ubuntu-latest
 
